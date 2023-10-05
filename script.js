@@ -33,11 +33,51 @@ document.getElementById('entry').value = newVal
 }
 
 function mathButPress(operator) {
-
+    //Check if there was a previous calculation by seeing if resultVal has a value 
+    //If resultVal doesn't have a value then store the current value as a previous for the next calculation
+    if (!resultVal) {
+        prevVal = newVal
+        
+    } else {
+        //IF there is a current result store that as the previous value entered
+        prevVal = resultVal
+    }
+    //Restart creation of new number 
+    newVal = ''
+    //Reset decimal clicked
+    decimalClicked = false
+    //Store operator clicked
+    mathOperator = operator
+    //Prepare entry for receiving new numbers
+    resultVal = ''
+    document.getElementById('entry').value = ''
 }
 
 function equalButPress() {
+    //Reset decimalClicked
+    decimalClicked = false
+    //Convert string numbers to floats
+    prevVal = parseFloat(prevVal)
+    newVal = parseFloat(newVal)
 
+    switch (mathOperator) {
+        case '+': 
+            resultVal = prevVal + newVal
+            break
+        case '-': 
+            resultVal = prevVal - newVal
+            break
+        case '*': 
+            resultVal = prevVal * newVal
+            break
+        case '/': 
+            resultVal = prevVal / newVal
+            break
+    default:
+        resultVal = newVal
+    }
+    prevVal = newVal
+    document.getElementById('entry').value = resultVal
 }
 
 // Clears everything except set memory
